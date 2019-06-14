@@ -19,7 +19,7 @@ from __future__ import division
 from __future__ import print_function
 
 from absl import app
-from absl import flags
+from tensorflow.python.platform import flags
 
 from distutils.version import LooseVersion
 
@@ -53,7 +53,7 @@ flags.DEFINE_integer(
 flags.DEFINE_string('model_dir', None, 'Model directory')
 
 num_classes = 10
-X = tf.placeholder(tf.float32, [FLAGS.batch_size, 227, 227, 3])
+X = tf.placeholder(tf.float32, [FLAGS.batch_size, 28, 28, 1])
 Y = tf.placeholder(tf.float32, [FLAGS.batch_size, num_classes])
 
 
