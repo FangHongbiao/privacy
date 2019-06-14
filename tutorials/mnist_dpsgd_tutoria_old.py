@@ -141,6 +141,7 @@ def load_mnist():
 
 
 def generate_next_batch(data, label, batch_size, shffule=False):
+    print(data.shape, label.shape, batch_size)
     if shffule:
         permutation = np.random.permutation(batch_size)
         data = data[permutation]
