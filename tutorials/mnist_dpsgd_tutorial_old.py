@@ -66,8 +66,8 @@ os.environ["CUDA_VISIBLE_DEVICES"] = FLAGS.gpu
 
 model_base_path = '/home/fanghb/dp-sgd/fork/privacy/'
 # TODO 模型和tensorboard存放的位置
-filewriter_path = model_base_path + FLAGS.dpsgd + "_" + FLAGS.method + "/tensorboard"
-checkpoint_path = model_base_path + FLAGS.dpsgd + "_" + FLAGS.method + "/checkpoints"
+filewriter_path = model_base_path + str(FLAGS.dpsgd) + "_" + FLAGS.method + "/tensorboard"
+checkpoint_path = model_base_path + str(FLAGS.dpsgd)  + "_" + FLAGS.method + "/checkpoints"
 
 # Create parent path if it doesn't exist
 if not os.path.isdir(checkpoint_path):
