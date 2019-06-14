@@ -53,7 +53,7 @@ flags.DEFINE_integer(
 flags.DEFINE_string('model_dir', None, 'Model directory')
 
 # num_classes = 10
-X = tf.placeholder(tf.float32, [FLAGS.batch_size, 28, 28, 1])
+X = tf.placeholder(tf.float32, [FLAGS.batch_size, 28, 28])
 Y = tf.placeholder(tf.int64, [FLAGS.batch_size])
 
 
