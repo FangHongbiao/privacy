@@ -168,7 +168,7 @@ def main(unused_argv):
             print("At epcho %d" % epoch)
 
             # Train the model for one epoch.
-            gen = generate_next_batch(data=train_data, label=train_labels, shffule=True)
+            gen = generate_next_batch(data=train_data, label=train_labels, batch_size=FLAGS.batch_size, shffule=True)
             for img_batch, label_batch in gen:
                 sess.run(train_op, feed_dict={X: img_batch,
                                               Y: label_batch})
