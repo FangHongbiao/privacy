@@ -115,7 +115,7 @@ def cnn_model_fn(features, labels, mode):
     # the vector_loss because tf.estimator requires a scalar loss. This is only
     # used for evaluation and debugging by tf.estimator. The actual loss being
     # minimized is opt_loss defined above and passed to optimizer.minimize().
-    return train_op, opt_loss, accuracy
+    return train_op, scalar_loss, accuracy
 
 
 def load_mnist():
