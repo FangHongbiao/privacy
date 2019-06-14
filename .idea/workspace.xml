@@ -108,7 +108,7 @@
         <entry file="file://$PROJECT_DIR$/tutorials/mnist_dpsgd_tutorial_old.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="50">
-              <caret line="17" column="203" lean-forward="false" selection-start-line="17" selection-start-column="203" selection-end-line="17" selection-end-column="203" />
+              <caret line="17" column="118" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
               <folding>
                 <element signature="e#1304#1342#0" expanded="true" />
               </folding>
@@ -658,7 +658,7 @@
     <entry file="file://$PROJECT_DIR$/tutorials/mnist_dpsgd_tutorial_old.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="50">
-          <caret line="17" column="203" lean-forward="false" selection-start-line="17" selection-start-column="203" selection-end-line="17" selection-end-column="203" />
+          <caret line="17" column="118" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding>
             <element signature="e#1304#1342#0" expanded="true" />
           </folding>
