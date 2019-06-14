@@ -160,7 +160,7 @@ def main(unused_argv):
 
         # Load training and test data.
         train_data, train_labels, test_data, test_labels = load_mnist()
-
+        print(train_data.shape, train_labels.shape)
         # Training loop.
         steps_per_epoch = 60000 // FLAGS.batch_size
         for epoch in range(1, FLAGS.epochs + 1):
