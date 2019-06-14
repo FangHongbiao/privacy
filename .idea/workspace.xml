@@ -15,30 +15,30 @@
       <file leaf-file-name="mnist_dpsgd_tutorial.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tutorials/mnist_dpsgd_tutorial.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4425">
-              <caret line="192" column="19" lean-forward="false" selection-start-line="192" selection-start-column="19" selection-end-line="192" selection-end-column="19" />
+            <state relative-caret-position="-21">
+              <caret line="58" column="6" lean-forward="false" selection-start-line="58" selection-start-column="6" selection-end-line="58" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mnist_dpsgd_tutorial_old.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="mnist_dpsgd_tutorial_old.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tutorials/mnist_dpsgd_tutorial_old.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="17" column="44" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+            <state relative-caret-position="150">
+              <caret line="18" column="141" lean-forward="false" selection-start-line="18" selection-start-column="141" selection-end-line="18" selection-end-column="141" />
               <folding>
-                <element signature="e#1081#1119#0" expanded="true" />
+                <element signature="e#1236#1274#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="compute_dp_sgd_privacy.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/privacy/analysis/compute_dp_sgd_privacy.py">
+      <file leaf-file-name="dp_optimizer.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/privacy/optimizers/dp_optimizer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="86" column="34" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
+            <state relative-caret-position="646">
+              <caret line="241" column="50" lean-forward="false" selection-start-line="241" selection-start-column="50" selection-end-line="241" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -47,8 +47,20 @@
       <file leaf-file-name="privacy_ledger.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/privacy/analysis/privacy_ledger.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-5463">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="426">
+              <caret line="173" column="34" lean-forward="true" selection-start-line="173" selection-start-column="34" selection-end-line="173" selection-end-column="34" />
+              <folding>
+                <element signature="e#676#714#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="compute_dp_sgd_privacy.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/privacy/analysis/compute_dp_sgd_privacy.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="179">
+              <caret line="65" column="33" lean-forward="true" selection-start-line="65" selection-start-column="33" selection-end-line="65" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -57,25 +69,25 @@
       <file leaf-file-name="rdp_accountant.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/privacy/analysis/rdp_accountant.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4575">
+            <state relative-caret-position="148">
+              <caret line="266" column="4" lean-forward="false" selection-start-line="266" selection-start-column="4" selection-end-line="266" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tensor_buffer_test_graph.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/privacy/analysis/tensor_buffer_test_graph.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-963">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="collect.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/privacy/analysis/collect.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="512">
-              <caret line="89" column="38" lean-forward="false" selection-start-line="89" selection-start-column="38" selection-end-line="89" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="logistic_regression_mnist.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tutorials/logistic_regression_mnist.py">
+      <file leaf-file-name="tensor_buffer_test_eager.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/privacy/analysis/tensor_buffer_test_eager.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -84,18 +96,8 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lm_dpsgd_tutorial.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tutorials/lm_dpsgd_tutorial.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="104" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dp_optimizer.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/privacy/optimizers/dp_optimizer.py">
+      <file leaf-file-name="tensor_buffer.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/privacy/analysis/tensor_buffer.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -104,11 +106,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-        <entry file="file://E:/Anaconada3/envs/tensorflow/Lib/site-packages/absl/flags/__init__.py">
+      <file leaf-file-name="rdp_accountant_test.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/privacy/analysis/rdp_accountant_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3225">
-              <caret line="147" column="0" lean-forward="false" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
+            <state relative-caret-position="-3300">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -129,6 +131,7 @@
       <find>FLAG</find>
       <find>app</find>
       <find>print</find>
+      <find>gpu</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -139,8 +142,9 @@
       <list>
         <option value="$PROJECT_DIR$/tutorials/mnist_dpsgd_tutoria_oldl.py" />
         <option value="$PROJECT_DIR$/tutorials/mnist_dpsgd_tutoria_old.py" />
-        <option value="$PROJECT_DIR$/tutorials/mnist_dpsgd_tutorial_old.py" />
         <option value="$PROJECT_DIR$/privacy/analysis/collect.py" />
+        <option value="$PROJECT_DIR$/privacy/optimizers/dp_optimizer.py" />
+        <option value="$PROJECT_DIR$/tutorials/mnist_dpsgd_tutorial_old.py" />
       </list>
     </option>
   </component>
@@ -493,7 +497,7 @@
         <state relative-caret-position="400">
           <caret line="16" column="26" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
-            <element signature="e#1081#1119#0" expanded="true" />
+            <element signature="e#1236#1274#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -514,22 +518,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tutorials/mnist_dpsgd_tutorial.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4425">
-          <caret line="192" column="19" lean-forward="false" selection-start-line="192" selection-start-column="19" selection-end-line="192" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/privacy/optimizers/dp_optimizer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tutorials/logistic_regression_mnist.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -546,45 +534,111 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tutorials/mnist_dpsgd_tutorial_old.py">
+    <entry file="file://$PROJECT_DIR$/privacy/analysis/collect.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="17" column="44" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding>
-            <element signature="e#1081#1119#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-213">
+          <caret line="60" column="4" lean-forward="false" selection-start-line="60" selection-start-column="4" selection-end-line="60" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/privacy/analysis/privacy_ledger.py">
+    <entry file="file://$PROJECT_DIR$/privacy/analysis/privacy_ledger_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5463">
+        <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/privacy/dp_query/dp_query.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3527">
+          <caret line="58" column="6" lean-forward="false" selection-start-line="58" selection-start-column="6" selection-end-line="58" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/privacy/analysis/tensor_buffer_test_graph.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-963">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/privacy/analysis/tensor_buffer_test_eager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/privacy/analysis/tensor_buffer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/privacy/analysis/rdp_accountant_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3300">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/privacy/analysis/privacy_ledger.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="426">
+          <caret line="173" column="34" lean-forward="true" selection-start-line="173" selection-start-column="34" selection-end-line="173" selection-end-column="34" />
+          <folding>
+            <element signature="e#676#714#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/privacy/analysis/rdp_accountant.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4575">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="148">
+          <caret line="266" column="4" lean-forward="false" selection-start-line="266" selection-start-column="4" selection-end-line="266" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/privacy/analysis/compute_dp_sgd_privacy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="86" column="34" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
+        <state relative-caret-position="179">
+          <caret line="65" column="33" lean-forward="true" selection-start-line="65" selection-start-column="33" selection-end-line="65" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/privacy/analysis/collect.py">
+    <entry file="file://$PROJECT_DIR$/tutorials/mnist_dpsgd_tutorial.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="89" column="38" lean-forward="false" selection-start-line="89" selection-start-column="38" selection-end-line="89" selection-end-column="38" />
+        <state relative-caret-position="-21">
+          <caret line="58" column="6" lean-forward="false" selection-start-line="58" selection-start-column="6" selection-end-line="58" selection-end-column="6" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/privacy/optimizers/dp_optimizer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="241" column="50" lean-forward="false" selection-start-line="241" selection-start-column="50" selection-end-line="241" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tutorials/mnist_dpsgd_tutorial_old.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="18" column="141" lean-forward="false" selection-start-line="18" selection-start-column="141" selection-end-line="18" selection-end-column="141" />
+          <folding>
+            <element signature="e#1236#1274#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
