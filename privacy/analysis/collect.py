@@ -87,7 +87,7 @@ def main(argv):
     orders = ([1.25, 1.5, 1.75, 2., 2.25, 2.5, 3., 3.5, 4., 4.5] +
               list(range(5, 64)) + [128, 256, 512])
 
-    for i in range(1, FLAGS.epochs + 1):
+    for i in range(1, int(FLAGS.epochs) + 1):
         steps = int(math.ceil(i*FLAGS.N / FLAGS.batch_size))
         apply_dp_sgd_analysis(q, FLAGS.noise_multiplier, steps, orders, FLAGS.delta)
 
