@@ -18,6 +18,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import os
 from absl import app
 from tensorflow.python.platform import flags
 
@@ -35,6 +36,8 @@ if LooseVersion(tf.__version__) < LooseVersion('2.0.0'):
     GradientDescentOptimizer = tf.train.GradientDescentOptimizer
 else:
     GradientDescentOptimizer = tf.optimizers.SGD  # pylint: disable=invalid-name
+
+os.environ["CUDA_VISIBLE_DEVICES"] = '0'
 
 FLAGS = flags.FLAGS
 
@@ -185,7 +188,7 @@ def main(unused_argv):
                 test_count += 1
             test_acc /= test_count
             test_loss /= test_count
-            print('Test accuracy: %.3f, Test loss : %.3f,  after %d epochs' % (test_acc, test_loss, epoch))
+            print('Test accuracy: {}, Test loss : {},  after {} epochs'.format(test_acc, test_loss, epoch))
 
 
 if __name__ == '__main__':
