@@ -173,7 +173,7 @@ def main(unused_argv):
                 sess.run(train_op, feed_dict={X: img_batch,
                                               Y: label_batch})
 
-            gen = generate_next_batch(data=test_data, label=test_labels, shffule=False)
+            gen = generate_next_batch(data=test_data, label=test_labels, batch_size=FLAGS.batch_size, shffule=False)
             test_acc = 0.
             test_loss = 0.
             test_count = 0
