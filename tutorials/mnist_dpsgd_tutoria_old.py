@@ -54,7 +54,7 @@ flags.DEFINE_string('model_dir', None, 'Model directory')
 
 # num_classes = 10
 X = tf.placeholder(tf.float32, [FLAGS.batch_size, 28, 28, 1])
-Y = tf.placeholder(tf.float32, [FLAGS.batch_size])
+Y = tf.placeholder(tf.int64, [FLAGS.batch_size])
 
 
 def cnn_model_fn(features, labels, mode):
