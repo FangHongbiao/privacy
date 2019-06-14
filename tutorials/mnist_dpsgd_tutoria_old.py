@@ -61,7 +61,7 @@ def cnn_model_fn(features, labels, mode):
     """Model function for a CNN."""
 
     # Define CNN architecture using tf.keras.layers.
-    input_layer = tf.reshape(features['x'], [-1, 28, 28, 1])
+    input_layer = tf.reshape(features, [-1, 28, 28, 1])
     y = tf.keras.layers.Conv2D(16, 8,
                                strides=2,
                                padding='same',
