@@ -146,6 +146,7 @@ def generate_next_batch(data, label, batch_size, shffule=False):
         data = data[permutation]
         label = label[permutation]
     size = len(data) // batch_size
+    print(batch_size, "()()", size, "()", len(data))
     for i in range(size):
         yield (data[i * batch_size: (i + 1) * batch_size], label[i * batch_size: (i + 1) * batch_size])
 
@@ -175,7 +176,7 @@ def main(unused_argv):
             i = 0
             for img_batch, label_batch in gen:
                 print("---", i)
-                i+=1
+                i += 1
                 sess.run(train_op, feed_dict={X: img_batch,
                                               Y: label_batch})
 
