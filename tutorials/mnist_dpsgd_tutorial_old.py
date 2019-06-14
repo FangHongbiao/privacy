@@ -15,7 +15,7 @@
 
 # nohup python -u mnist_dpsgd_tutorial_old.py --gpu 0 --dpsgd Flase > nohup_mnist_dpsgd_tutorial_old_None_0614 2>&1  &
 # nohup python -u mnist_dpsgd_tutorial_old.py --gpu 0 --dpsgd True --method sgd --batch_size 256 > nohup_mnist_dpsgd_tutorial_old_sgd_0614 2>&1  &
-# nohup python -u mnist_dpsgd_tutorial_old.py --gpu 0 --dpsgd True --method adam --batch_size 256 > nohup_mnist_dpsgd_tutorial_old_adam_0614 2>&1  &
+# nohup python -u mnist_dpsgd_tutorial_old.py --gpu 1 --dpsgd True --method adam --batch_size 256 > nohup_mnist_dpsgd_tutorial_old_adam_0614 2>&1  &
 
 """Training a CNN on MNIST with differentially private SGD optimizer."""
 
@@ -125,7 +125,13 @@ def cnn_model_fn(features, labels, mode):
                 ledger=ledger,
                 learning_rate=FLAGS.learning_rate)
         elif FLAGS.method == 'adam':
-            pass
+            optimizer = dp_optimizer.DPAdamGaussianOptimizer(
+                l2_norm_clip=FLAGS.l2_norm_clip,
+                noise_multiplier=FLAGS.noise_multiplier,
+                num_microbatches=FLAGS.microbatches,
+                ledger=ledger,
+                learning_rate=FLAGS.learning_rate,
+                unroll_microbatches=True)
         else:
             raise ValueError('method must be sgd or adam')
         opt_loss = vector_loss
