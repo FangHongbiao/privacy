@@ -15,7 +15,7 @@
 
 # nohup python -u mnist_dpsgd_tutorial_old.py --gpu 0 --dpsgd Flase > nohup_mnist_dpsgd_tutorial_old_None_0614 2>&1  &
 # nohup python -u mnist_dpsgd_tutorial_old.py --gpu 0 --dpsgd True --method sgd --batch_size 256 > nohup_mnist_dpsgd_tutorial_old_sgd_0614 2>&1  &
-# nohup python -u mnist_dpsgd_tutorial_old.py --gpu 1 --dpsgd True --method adam --batch_size 256 > nohup_mnist_dpsgd_tutorial_old_adam_0614 2>&1  &
+# nohup python -u mnist_dpsgd_tutorial_old.py --gpu 1 --dpsgd True --method adam --learning_rate 0.001 --noise_multiplier 0.001 --l2_norm_clip 1.0 --batch_size 256 > nohup_mnist_dpsgd_tutorial_old_adam_1_0614 2>&1  &
 # nohup python -u mnist_dpsgd_tutorial_old.py --gpu 1 --dpsgd True --method adagrad --batch_size 256 > nohup_mnist_dpsgd_tutorial_old_adagrad_0614 2>&1  &
 
 """Training a CNN on MNIST with differentially private SGD optimizer."""
