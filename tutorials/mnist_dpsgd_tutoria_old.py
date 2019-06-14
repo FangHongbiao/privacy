@@ -12,6 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
+# nohup python -u mnist_dpsgd_tutorial_old.py --gpu 0 --dpsgd Flase > nohup_mnist_dpsgd_tutorial_old_None_0614 2>&1  &
+# nohup python -u mnist_dpsgd_tutorial_old.py --gpu 0 --dpsgd True --method sgd --batch_size 256 > nohup_mnist_dpsgd_tutorial_old_sgd_0614 2>&1  &
+# nohup python -u mnist_dpsgd_tutorial_old.py --gpu 0 --dpsgd True --method adam --batch_size 256 > nohup_mnist_dpsgd_tutorial_old_adam_0614 2>&1  &
+
 """Training a CNN on MNIST with differentially private SGD optimizer."""
 
 from __future__ import absolute_import
@@ -37,13 +42,14 @@ if LooseVersion(tf.__version__) < LooseVersion('2.0.0'):
 else:
     GradientDescentOptimizer = tf.optimizers.SGD  # pylint: disable=invalid-name
 
-os.environ["CUDA_VISIBLE_DEVICES"] = '0'
-
 FLAGS = flags.FLAGS
 
 flags.DEFINE_boolean(
     'dpsgd', True, 'If True, train with DP-SGD. If False, '
                    'train with vanilla SGD.')
+flags.DEFINE_string(
+    'method', "sgd", 'opt method '
+                     'train with dp SGD.')
 flags.DEFINE_float('learning_rate', .15, 'Learning rate for training')
 flags.DEFINE_float('noise_multiplier', 1.1,
                    'Ratio of the standard deviation to the clipping norm')
@@ -54,8 +60,21 @@ flags.DEFINE_integer(
     'microbatches', 256, 'Number of microbatches '
                          '(must evenly divide batch_size)')
 flags.DEFINE_string('model_dir', None, 'Model directory')
+flags.DEFINE_string('gpu', '1', 'set gpu')
 
-# num_classes = 10
+os.environ["CUDA_VISIBLE_DEVICES"] = FLAGS.gpu
+
+model_base_path = '/home/fanghb/dp-sgd/fork/privacy/'
+# TODO 模型和tensorboard存放的位置
+filewriter_path = model_base_path + FLAGS.dpsgd + "_" + FLAGS.method + "/tensorboard"
+checkpoint_path = model_base_path + FLAGS.dpsgd + "_" + FLAGS.method + "/checkpoints"
+
+# Create parent path if it doesn't exist
+if not os.path.isdir(checkpoint_path):
+    os.makedirs(checkpoint_path)
+if not os.path.isdir(filewriter_path):
+    os.makedirs(filewriter_path)
+
 X = tf.placeholder(tf.float32, [FLAGS.batch_size, 28, 28])
 Y = tf.placeholder(tf.int64, [FLAGS.batch_size])
 
@@ -98,12 +117,17 @@ def cnn_model_fn(features, labels, mode):
         # available in dp_optimizer. Most optimizers inheriting from
         # tf.train.Optimizer should be wrappable in differentially private
         # counterparts by calling dp_optimizer.optimizer_from_args().
-        optimizer = dp_optimizer.DPGradientDescentGaussianOptimizer(
-            l2_norm_clip=FLAGS.l2_norm_clip,
-            noise_multiplier=FLAGS.noise_multiplier,
-            num_microbatches=FLAGS.microbatches,
-            ledger=ledger,
-            learning_rate=FLAGS.learning_rate)
+        if FLAGS.method == 'sgd':
+            optimizer = dp_optimizer.DPGradientDescentGaussianOptimizer(
+                l2_norm_clip=FLAGS.l2_norm_clip,
+                noise_multiplier=FLAGS.noise_multiplier,
+                num_microbatches=FLAGS.microbatches,
+                ledger=ledger,
+                learning_rate=FLAGS.learning_rate)
+        elif FLAGS.method == 'adam':
+            pass
+        else:
+            raise ValueError('method must be sgd or adam')
         opt_loss = vector_loss
     else:
         optimizer = GradientDescentOptimizer(learning_rate=FLAGS.learning_rate)
@@ -154,8 +178,18 @@ def generate_next_batch(data, label, batch_size, shffule=False):
 
 train_op, opt_loss, opt_accuracy = cnn_model_fn(X, Y, None)
 
+tf.summary.scalar('loss', opt_loss)
+tf.summary.scalar('accuracy', opt_accuracy)
+
 
 def main(unused_argv):
+    merged = tf.summary.merge_all()
+    # Initialize the FileWriter
+    writer = tf.summary.FileWriter(filewriter_path)
+
+    # Initialize an saver for store model checkpoints
+    saver = tf.train.Saver(var_list=tf.trainable_variables())
+
     gpu_options = tf.GPUOptions(allow_growth=True)
     with tf.Session(config=tf.ConfigProto(gpu_options=gpu_options)) as sess:
         sess.run(tf.global_variables_initializer())
@@ -167,19 +201,24 @@ def main(unused_argv):
         train_data, train_labels, test_data, test_labels = load_mnist()
         print(train_data.shape, train_labels.shape)
         # Training loop.
-        steps_per_epoch = 60000 // FLAGS.batch_size
         for epoch in range(1, FLAGS.epochs + 1):
 
             print("At epcho %d" % epoch)
 
             # Train the model for one epoch.
             gen = generate_next_batch(data=train_data, label=train_labels, batch_size=FLAGS.batch_size, shffule=True)
-            i = 0
+            train_acc = 0.
+            train_loss = 0.
+            train_count = 0
             for img_batch, label_batch in gen:
-                print("---", i)
-                i += 1
-                sess.run(train_op, feed_dict={X: img_batch,
-                                              Y: label_batch})
+                _, loss, acc = sess.run([train_op, opt_loss, opt_accuracy], feed_dict={X: img_batch,
+                                                                                       Y: label_batch})
+                train_acc += acc
+                train_loss += loss
+                train_count += 1
+            train_acc /= train_count
+            train_loss /= train_count
+            print('Train accuracy: {}, Train loss : {},  after {} epochs'.format(train_acc, train_loss, epoch))
 
             gen = generate_next_batch(data=test_data, label=test_labels, batch_size=FLAGS.batch_size, shffule=False)
             test_acc = 0.
