@@ -15,8 +15,8 @@
       <file leaf-file-name="mnist_dpsgd_tutorial.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tutorials/mnist_dpsgd_tutorial.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1200">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="2212">
+              <caret line="192" column="19" lean-forward="true" selection-start-line="192" selection-start-column="19" selection-end-line="192" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -25,8 +25,8 @@
       <file leaf-file-name="mnist_dpsgd_tutoria_old.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tutorials/mnist_dpsgd_tutoria_old.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
-              <caret line="117" column="32" lean-forward="false" selection-start-line="117" selection-start-column="32" selection-end-line="117" selection-end-column="32" />
+            <state relative-caret-position="343">
+              <caret line="177" column="20" lean-forward="false" selection-start-line="177" selection-start-column="20" selection-end-line="177" selection-end-column="20" />
               <folding>
                 <element signature="e#664#702#0" expanded="true" />
               </folding>
@@ -61,6 +61,7 @@
       <find>dpsgd</find>
       <find>FLAG</find>
       <find>app</find>
+      <find>print</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -362,14 +363,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tutorials/mnist_dpsgd_tutorial.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1200">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://E:/Anaconada3/envs/tensorflow/Lib/site-packages/tensorflow/python/estimator/estimator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-377">
@@ -386,10 +379,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tutorials/mnist_dpsgd_tutorial.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2212">
+          <caret line="192" column="19" lean-forward="true" selection-start-line="192" selection-start-column="19" selection-end-line="192" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tutorials/mnist_dpsgd_tutoria_old.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="117" column="32" lean-forward="false" selection-start-line="117" selection-start-column="32" selection-end-line="117" selection-end-column="32" />
+        <state relative-caret-position="343">
+          <caret line="177" column="20" lean-forward="false" selection-start-line="177" selection-start-column="20" selection-end-line="177" selection-end-column="20" />
           <folding>
             <element signature="e#664#702#0" expanded="true" />
           </folding>

@@ -172,7 +172,10 @@ def main(unused_argv):
 
             # Train the model for one epoch.
             gen = generate_next_batch(data=train_data, label=train_labels, batch_size=FLAGS.batch_size, shffule=True)
+            i = 0
             for img_batch, label_batch in gen:
+                print("---", i)
+                i+=1
                 sess.run(train_op, feed_dict={X: img_batch,
                                               Y: label_batch})
 
