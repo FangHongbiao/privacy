@@ -52,9 +52,9 @@ flags.DEFINE_integer(
                          '(must evenly divide batch_size)')
 flags.DEFINE_string('model_dir', None, 'Model directory')
 
-num_classes = 10
+# num_classes = 10
 X = tf.placeholder(tf.float32, [FLAGS.batch_size, 28, 28, 1])
-Y = tf.placeholder(tf.float32, [FLAGS.batch_size, num_classes])
+Y = tf.placeholder(tf.float32, [FLAGS.batch_size])
 
 
 def cnn_model_fn(features, labels, mode):
@@ -77,7 +77,7 @@ def cnn_model_fn(features, labels, mode):
     logits = tf.keras.layers.Dense(10).apply(y)
 
     # Calculate accuracy.
-    correct_pred = tf.equal(tf.argmax(logits, 1), tf.argmax(labels, 1))
+    correct_pred = tf.equal(tf.argmax(logits, 1), labels)
     accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
     # Calculate loss as a vector (to support microbatches in DP-SGD).
