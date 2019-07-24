@@ -23,6 +23,7 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
+from time import strftime, localtime
 
 import os
 from absl import app
@@ -40,6 +41,8 @@ from privacy.optimizers import dp_optimizer
 
 if LooseVersion(tf.__version__) < LooseVersion('2.0.0'):
     GradientDescentOptimizer = tf.train.GradientDescentOptimizer
+    AdamOptimizer = tf.train.AdamOptimizer
+    AdagradOptimizer = tf.train.AdagradOptimizer
 else:
     GradientDescentOptimizer = tf.optimizers.SGD  # pylint: disable=invalid-name
 
@@ -66,9 +69,27 @@ flags.DEFINE_string('gpu', '1', 'set gpu')
 os.environ["CUDA_VISIBLE_DEVICES"] = FLAGS.gpu
 
 model_base_path = '/home/fanghb/dp-sgd/fork/privacy/'
+
+params = {
+    'dpsgd': FLAGS.dpsgd,
+    'method': FLAGS.method,
+    'learning_rate': FLAGS.learning_rate,
+    'noise_multiplier': FLAGS.noise_multiplier,
+    'l2_norm_clip': FLAGS.l2_norm_clip,
+    'batch_size': FLAGS.batch_size,
+    'epochs': FLAGS.epochs,
+    'microbatches': FLAGS.microbatches,
+    'model_dir': FLAGS.model_dir,
+    'gpu': FLAGS.gpu
+
+}
+
+print(strftime("%Y-%m-%d %H:%M:%S", localtime()))
+print(params)
+
 # TODO 模型和tensorboard存放的位置
 filewriter_path = model_base_path + str(FLAGS.dpsgd) + "_" + FLAGS.method + "/tensorboard"
-checkpoint_path = model_base_path + str(FLAGS.dpsgd)  + "_" + FLAGS.method + "/checkpoints"
+checkpoint_path = model_base_path + str(FLAGS.dpsgd) + "_" + FLAGS.method + "/checkpoints"
 
 # Create parent path if it doesn't exist
 if not os.path.isdir(checkpoint_path):
@@ -144,7 +165,12 @@ def cnn_model_fn(features, labels, mode):
             raise ValueError('method must be sgd or adam')
         opt_loss = vector_loss
     else:
-        optimizer = GradientDescentOptimizer(learning_rate=FLAGS.learning_rate)
+        if FLAGS.method == 'sgd':
+            optimizer = GradientDescentOptimizer(learning_rate=FLAGS.learning_rate)
+        elif FLAGS.method == 'adam':
+            optimizer = AdamOptimizer(learning_rate=FLAGS.learning_rate)
+        elif FLAGS.method == 'adagrad':
+            optimizer = AdagradOptimizer(learning_rate=FLAGS.learning_rate)
 
         opt_loss = scalar_loss
     global_step = tf.train.get_global_step()
