@@ -43,6 +43,7 @@ if LooseVersion(tf.__version__) < LooseVersion('2.0.0'):
     GradientDescentOptimizer = tf.train.GradientDescentOptimizer
     AdamOptimizer = tf.train.AdamOptimizer
     AdagradOptimizer = tf.train.AdagradOptimizer
+    MomentumOptimizer = tf.train.MomentumOptimizer
 else:
     GradientDescentOptimizer = tf.optimizers.SGD  # pylint: disable=invalid-name
 
@@ -54,6 +55,10 @@ flags.DEFINE_boolean(
 flags.DEFINE_string(
     'method', "sgd", 'opt method '
                      'train with dp SGD.')
+flags.DEFINE_float(
+    'momentum', 0.9, 'momentum'
+                     'train with momentum.')
+
 flags.DEFINE_float('learning_rate', .15, 'Learning rate for training')
 flags.DEFINE_float('noise_multiplier', 1.1,
                    'Ratio of the standard deviation to the clipping norm')
@@ -80,6 +85,7 @@ params = {
     'epochs': FLAGS.epochs,
     'microbatches': FLAGS.microbatches,
     'model_dir': FLAGS.model_dir,
+    'momentum': FLAGS.momentum,
     'gpu': FLAGS.gpu
 
 }
@@ -161,8 +167,18 @@ def cnn_model_fn(features, labels, mode):
                 num_microbatches=FLAGS.microbatches,
                 ledger=ledger,
                 learning_rate=FLAGS.learning_rate)
+        elif FLAGS.method == 'momentum':
+            optimizer = dp_optimizer.DPMomentumGaussianOptimizer(
+                l2_norm_clip=FLAGS.l2_norm_clip,
+                noise_multiplier=FLAGS.noise_multiplier,
+                num_microbatches=FLAGS.microbatches,
+                ledger=ledger,
+                learning_rate=FLAGS.learning_rate,
+                momentum=FLAGS.momentum
+                )
+
         else:
-            raise ValueError('method must be sgd or adam')
+            raise ValueError('method must be sgd or adam or adagrad or momentum')
         opt_loss = vector_loss
     else:
         if FLAGS.method == 'sgd':
@@ -171,7 +187,10 @@ def cnn_model_fn(features, labels, mode):
             optimizer = AdamOptimizer(learning_rate=FLAGS.learning_rate)
         elif FLAGS.method == 'adagrad':
             optimizer = AdagradOptimizer(learning_rate=FLAGS.learning_rate)
-
+        elif FLAGS.method == 'momentum':
+            optimizer = MomentumOptimizer(learning_rate=FLAGS.learning_rate, momentum=FLAGS.momentum)
+        else:
+            raise ValueError('method must be sgd or adam or adagrad or momentum')
         opt_loss = scalar_loss
     global_step = tf.train.get_global_step()
     train_op = optimizer.minimize(loss=opt_loss, global_step=global_step)

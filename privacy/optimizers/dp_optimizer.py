@@ -230,6 +230,7 @@ if LooseVersion(tf.__version__) < LooseVersion('2.0.0'):
   AdagradOptimizer = tf.train.AdagradOptimizer
   AdamOptimizer = tf.train.AdamOptimizer
   GradientDescentOptimizer = tf.train.GradientDescentOptimizer
+  MomentumOptimizer = tf.train.MomentumOptimizer
 else:
   AdagradOptimizer = tf.optimizers.Adagrad
   AdamOptimizer = tf.optimizers.Adam
@@ -238,8 +239,11 @@ else:
 DPAdagradOptimizer = make_optimizer_class(AdagradOptimizer)
 DPAdamOptimizer = make_optimizer_class(AdamOptimizer)
 DPGradientDescentOptimizer = make_optimizer_class(GradientDescentOptimizer)
+DPMomentumOptimizer = make_optimizer_class(MomentumOptimizer)
 
 DPAdagradGaussianOptimizer = make_gaussian_optimizer_class(AdagradOptimizer)
 DPAdamGaussianOptimizer = make_gaussian_optimizer_class(AdamOptimizer)
 DPGradientDescentGaussianOptimizer = make_gaussian_optimizer_class(
     GradientDescentOptimizer)
+DPMomentumGaussianOptimizer = make_gaussian_optimizer_class(
+    MomentumOptimizer)
