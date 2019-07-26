@@ -52,6 +52,7 @@ FLAGS = flags.FLAGS
 flags.DEFINE_boolean(
     'dpsgd', True, 'If True, train with DP-SGD. If False, '
                    'train with vanilla SGD.')
+flags.DEFINE_boolean('use_nesterov', True, 'If True, train with use_nesterov.')
 flags.DEFINE_string(
     'method', "sgd", 'opt method '
                      'train with dp SGD.')
@@ -86,7 +87,8 @@ params = {
     'microbatches': FLAGS.microbatches,
     'model_dir': FLAGS.model_dir,
     'momentum': FLAGS.momentum,
-    'gpu': FLAGS.gpu
+    'gpu': FLAGS.gpu,
+    'use_nesterov': FLAGS.use_nesterov
 
 }
 
@@ -174,7 +176,8 @@ def cnn_model_fn(features, labels, mode):
                 num_microbatches=FLAGS.microbatches,
                 ledger=ledger,
                 learning_rate=FLAGS.learning_rate,
-                momentum=FLAGS.momentum
+                momentum=FLAGS.momentum,
+                use_nesterov=FLAGS.use_nesterov
                 )
 
         else:
@@ -188,7 +191,7 @@ def cnn_model_fn(features, labels, mode):
         elif FLAGS.method == 'adagrad':
             optimizer = AdagradOptimizer(learning_rate=FLAGS.learning_rate)
         elif FLAGS.method == 'momentum':
-            optimizer = MomentumOptimizer(learning_rate=FLAGS.learning_rate, momentum=FLAGS.momentum)
+            optimizer = MomentumOptimizer(learning_rate=FLAGS.learning_rate, momentum=FLAGS.momentum, use_nesterov=FLAGS.use_nesterov)
         else:
             raise ValueError('method must be sgd or adam or adagrad or momentum')
         opt_loss = scalar_loss
