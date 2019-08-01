@@ -244,6 +244,9 @@ def load_cifar10():
     train_labels = np.array(train_labels, dtype=np.int32)
     test_labels = np.array(test_labels, dtype=np.int32)
 
+    np.reshape(train_labels, (-1, ))
+    np.reshape(test_labels, (-1, ))
+
     print(train_labels.shape, test_data.shape)
 
     assert train_data.min() == 0.
