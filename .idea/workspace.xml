@@ -45,8 +45,8 @@
       <file leaf-file-name="mnist_dpsgd_tutorial_old.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tutorials/mnist_dpsgd_tutorial_old.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="247" column="18" lean-forward="false" selection-start-line="247" selection-start-column="18" selection-end-line="247" selection-end-column="18" />
+            <state relative-caret-position="250">
+              <caret line="121" column="57" lean-forward="false" selection-start-line="121" selection-start-column="57" selection-end-line="121" selection-end-column="57" />
               <folding>
                 <element signature="e#1304#1342#0" expanded="true" />
               </folding>
@@ -878,8 +878,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tutorials/mnist_dpsgd_tutorial_old.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="247" column="18" lean-forward="false" selection-start-line="247" selection-start-column="18" selection-end-line="247" selection-end-column="18" />
+        <state relative-caret-position="250">
+          <caret line="121" column="57" lean-forward="false" selection-start-line="121" selection-start-column="57" selection-end-line="121" selection-end-column="57" />
           <folding>
             <element signature="e#1304#1342#0" expanded="true" />
           </folding>
