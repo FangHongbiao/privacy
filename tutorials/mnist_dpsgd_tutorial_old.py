@@ -49,6 +49,9 @@ else:
 
 FLAGS = flags.FLAGS
 
+flags.DEFINE_string(
+    'dataset', "mnist", 'choose: mnist or cifar10 or svhn')
+
 flags.DEFINE_boolean(
     'dpsgd', True, 'If True, train with DP-SGD. If False, '
                    'train with vanilla SGD.')
@@ -178,7 +181,7 @@ def cnn_model_fn(features, labels, mode):
                 learning_rate=FLAGS.learning_rate,
                 momentum=FLAGS.momentum,
                 use_nesterov=FLAGS.use_nesterov
-                )
+            )
 
         else:
             raise ValueError('method must be sgd or adam or adagrad or momentum')
@@ -191,7 +194,8 @@ def cnn_model_fn(features, labels, mode):
         elif FLAGS.method == 'adagrad':
             optimizer = AdagradOptimizer(learning_rate=FLAGS.learning_rate)
         elif FLAGS.method == 'momentum':
-            optimizer = MomentumOptimizer(learning_rate=FLAGS.learning_rate, momentum=FLAGS.momentum, use_nesterov=FLAGS.use_nesterov)
+            optimizer = MomentumOptimizer(learning_rate=FLAGS.learning_rate, momentum=FLAGS.momentum,
+                                          use_nesterov=FLAGS.use_nesterov)
         else:
             raise ValueError('method must be sgd or adam or adagrad or momentum')
         opt_loss = scalar_loss
@@ -207,6 +211,28 @@ def cnn_model_fn(features, labels, mode):
 def load_mnist():
     """Loads MNIST and preprocesses to combine training and validation data."""
     train, test = tf.keras.datasets.mnist.load_data()
+    train_data, train_labels = train
+    test_data, test_labels = test
+
+    train_data = np.array(train_data, dtype=np.float32) / 255
+    test_data = np.array(test_data, dtype=np.float32) / 255
+
+    train_labels = np.array(train_labels, dtype=np.int32)
+    test_labels = np.array(test_labels, dtype=np.int32)
+
+    assert train_data.min() == 0.
+    assert train_data.max() == 1.
+    assert test_data.min() == 0.
+    assert test_data.max() == 1.
+    assert train_labels.ndim == 1
+    assert test_labels.ndim == 1
+
+    return train_data, train_labels, test_data, test_labels
+
+
+def load_cifar10():
+    """Loads MNIST and preprocesses to combine training and validation data."""
+    train, test = tf.keras.datasets.cifar10.load_data()
     train_data, train_labels = train
     test_data, test_labels = test
 
@@ -243,6 +269,13 @@ train_op, opt_loss, opt_accuracy = cnn_model_fn(X, Y, None)
 tf.summary.scalar('loss', opt_loss)
 tf.summary.scalar('accuracy', opt_accuracy)
 
+if FLAGS.dataset == "mnist":
+    train_data, train_labels, test_data, test_labels = load_mnist()
+elif FLAGS.dataset == "cifar10":
+    train_data, train_labels, test_data, test_labels = load_cifar10()
+elif FLAGS.dataset == "svhn":
+    pass
+
 
 def main(unused_argv):
     merged = tf.summary.merge_all()
@@ -260,7 +293,6 @@ def main(unused_argv):
             raise ValueError('Number of microbatches should divide evenly batch_size')
 
         # Load training and test data.
-        train_data, train_labels, test_data, test_labels = load_mnist()
         print(train_data.shape, train_labels.shape)
         # Training loop.
         for epoch in range(1, FLAGS.epochs + 1):
