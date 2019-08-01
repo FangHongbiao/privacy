@@ -108,7 +108,13 @@ if not os.path.isdir(checkpoint_path):
 if not os.path.isdir(filewriter_path):
     os.makedirs(filewriter_path)
 
-X = tf.placeholder(tf.float32, [FLAGS.batch_size, 28, 28])
+if FLAGS.dataset == "mnist":
+    X = tf.placeholder(tf.float32, [FLAGS.batch_size, 28, 28])
+elif FLAGS.dataset == "cifar10":
+    X = tf.placeholder(tf.float32, [FLAGS.batch_size, 32, 32, 3])
+elif FLAGS.dataset == "svhn":
+    pass
+
 Y = tf.placeholder(tf.int64, [FLAGS.batch_size])
 
 
@@ -122,7 +128,6 @@ def cnn_model_fn(features, labels, mode):
         input_layer = tf.reshape(features, [-1, 32, 32, 3])
     elif FLAGS.dataset == "svhn":
         pass
-
 
     y = tf.keras.layers.Conv2D(16, 8,
                                strides=2,
@@ -251,8 +256,8 @@ def load_cifar10():
     train_labels = np.array(train_labels, dtype=np.int32)
     test_labels = np.array(test_labels, dtype=np.int32)
 
-    train_labels = np.reshape(train_labels, (-1, ))
-    test_labels = np.reshape(test_labels, (-1, ))
+    train_labels = np.reshape(train_labels, (-1,))
+    test_labels = np.reshape(test_labels, (-1,))
 
     print(train_labels.shape, test_data.shape)
 
