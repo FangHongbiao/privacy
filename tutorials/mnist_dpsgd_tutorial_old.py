@@ -52,6 +52,9 @@ FLAGS = flags.FLAGS
 flags.DEFINE_string(
     'dataset', "mnist", 'choose: mnist or cifar10 or svhn')
 
+flags.DEFINE_string(
+    'model', "deep", 'choose: trival or deep or lenet')
+
 flags.DEFINE_boolean(
     'dpsgd', True, 'If True, train with DP-SGD. If False, '
                    'train with vanilla SGD.')
@@ -113,22 +116,12 @@ if FLAGS.dataset == "mnist":
 elif FLAGS.dataset == "cifar10":
     X = tf.placeholder(tf.float32, [FLAGS.batch_size, 32, 32, 3])
 elif FLAGS.dataset == "svhn":
-    pass
+    X = tf.placeholder(tf.float32, [FLAGS.batch_size, 32, 32, 3])
 
 Y = tf.placeholder(tf.int64, [FLAGS.batch_size])
 
 
-def cnn_model_fn(features, labels, mode):
-    """Model function for a CNN."""
-
-    # Define CNN architecture using tf.keras.layers.
-    if FLAGS.dataset == "mnist":
-        input_layer = tf.reshape(features, [-1, 28, 28, 1])
-    elif FLAGS.dataset == "cifar10":
-        input_layer = tf.reshape(features, [-1, 32, 32, 3])
-    elif FLAGS.dataset == "svhn":
-        pass
-
+def trival(input_layer):
     y = tf.keras.layers.Conv2D(16, 8,
                                strides=2,
                                padding='same',
@@ -142,6 +135,116 @@ def cnn_model_fn(features, labels, mode):
     y = tf.keras.layers.Flatten().apply(y)
     y = tf.keras.layers.Dense(32, activation='relu').apply(y)
     logits = tf.keras.layers.Dense(10).apply(y)
+    return logits
+
+
+def letnet(input_layer):
+    pass
+
+
+def alexnet(input_layer):
+    pass
+
+
+def deep(input_layer):
+    conv1_1 = tf.layers.conv2d(input_layer,
+                               32,  # 输出的通道数(也就是卷积核的数量)
+                               (3, 3),  # 卷积核大小
+                               padding='same',
+                               activation=tf.nn.relu,
+                               name='conv1_1'
+                               )
+    conv1_2 = tf.layers.conv2d(conv1_1,
+                               32,  # 输出的通道数(也就是卷积核的数量)
+                               (3, 3),  # 卷积核大小
+                               padding='same',
+                               activation=tf.nn.relu,
+                               name='conv1_2'
+                               )
+    # 池化层 图像输出为: 16 * 16
+    pooling1 = tf.layers.max_pooling2d(conv1_2,
+                                       (2, 2),  # 核大小
+                                       (2, 2),  # 步长
+                                       name='pool1'
+                                       )
+    conv2_1 = tf.layers.conv2d(pooling1,
+                               32,  # 输出的通道数
+                               (3, 3),  # 卷积核大小
+                               padding='same',
+                               activation=tf.nn.relu,
+                               name='conv2_1'
+                               )
+    conv2_2 = tf.layers.conv2d(conv2_1,
+                               32,  # 输出的通道数
+                               (3, 3),  # 卷积核大小
+                               padding='same',
+                               activation=tf.nn.relu,
+                               name='conv2_2'
+                               )
+    # 池化层 图像输出为 8 * 8
+    pooling2 = tf.layers.max_pooling2d(conv2_2,
+                                       (2, 2),  # 核大小
+                                       (2, 2),  # 步长
+                                       name='pool2'
+                                       )
+    conv3_1 = tf.layers.conv2d(pooling2,
+                               32,  # 输出的通道数
+                               (3, 3),  # 卷积核大小
+                               padding='same',
+                               activation=tf.nn.relu,
+                               name='conv3_1'
+                               )
+    conv3_2 = tf.layers.conv2d(conv3_1,
+                               32,  # 输出的通道数
+                               (3, 3),  # 卷积核大小
+                               padding='same',
+                               activation=tf.nn.relu,
+                               name='conv3_2'
+                               )
+    # 池化层 输出为 4 * 4 * 32
+    pooling3 = tf.layers.max_pooling2d(conv3_2,
+                                       (2, 2),  # 核大小
+                                       (2, 2),  # 步长
+                                       name='pool3'
+                                       )
+    # 展平
+    flatten = tf.contrib.layers.flatten(pooling3)
+    logits = tf.layers.dense(flatten, 10)
+    return logits
+
+
+def cnn_model_fn(features, labels):
+    """Model function for a CNN."""
+
+    # Define CNN architecture using tf.keras.layers.
+    if FLAGS.dataset == "mnist":
+        input_layer = tf.reshape(features, [-1, 28, 28, 1])
+    elif FLAGS.dataset == "cifar10":
+        input_layer = features
+        # input_layer = tf.reshape(features, [-1, 32, 32, 3])
+    elif FLAGS.dataset == "svhn":
+        input_layer = tf.reshape(features, [-1, 32, 32, 3])
+
+    # y = tf.keras.layers.Conv2D(16, 8,
+    #                            strides=2,
+    #                            padding='same',
+    #                            activation='relu').apply(input_layer)
+    # y = tf.keras.layers.MaxPool2D(2, 1).apply(y)
+    # y = tf.keras.layers.Conv2D(32, 4,
+    #                            strides=2,
+    #                            padding='valid',
+    #                            activation='relu').apply(y)
+    # y = tf.keras.layers.MaxPool2D(2, 1).apply(y)
+    # y = tf.keras.layers.Flatten().apply(y)
+    # y = tf.keras.layers.Dense(32, activation='relu').apply(y)
+
+    if FLAGS.model == "trival":
+        logits = trival(input_layer=input_layer)
+    elif FLAGS.model == "deep":
+        logits = deep(input_layer=input_layer)
+        # input_layer = tf.reshape(features, [-1, 32, 32, 3])
+    elif FLAGS.model == "letnet":
+        logits = trival(input_layer=input_layer)
 
     # Calculate accuracy.
     correct_pred = tf.equal(tf.argmax(logits, 1), labels)
@@ -271,6 +374,48 @@ def load_cifar10():
     return train_data, train_labels, test_data, test_labels
 
 
+def load_svhn():
+    """Loads SVHN and preprocesses to combine training and validation data."""
+
+    from scipy.io import loadmat as load
+
+    traindata = load('data/train_32x32.mat')
+    testdata = load('data/test_32x32.mat')
+
+    def reformat(samples, labels):
+        # 改变原始数据的形状
+        # (图片高，图片宽，通道数，图片数)->(图片数,图片高，图片宽，通道数)
+        samples = np.transpose(samples, (3, 0, 1, 2))
+        labels = np.reshape(labels, (-1,))
+        return samples, labels
+
+    train_data, train_labels = reformat(traindata['X']), traindata['y']
+    test_data, test_labels = reformat(testdata['X']), testdata['y']
+
+    print(train_data.min())
+    print(train_data.max())
+
+    train_data = np.array(train_data, dtype=np.float32) / 255
+    test_data = np.array(test_data, dtype=np.float32) / 255
+
+    train_labels = np.array(train_labels, dtype=np.int32)
+    test_labels = np.array(test_labels, dtype=np.int32)
+
+    train_labels = np.reshape(train_labels, (-1,))
+    test_labels = np.reshape(test_labels, (-1,))
+
+    print(train_labels.shape, test_data.shape)
+
+    assert train_data.min() == 0.
+    assert train_data.max() == 1.
+    assert test_data.min() == 0.
+    assert test_data.max() == 1.
+    assert train_labels.ndim == 1
+    assert test_labels.ndim == 1
+
+    return train_data, train_labels, test_data, test_labels
+
+
 def generate_next_batch(data, label, batch_size, shffule=False):
     print(type(data), data.shape, label.shape, batch_size, "---", data.shape[0], data.shape[1], data.shape[2])
     if shffule:
@@ -293,7 +438,7 @@ if FLAGS.dataset == "mnist":
 elif FLAGS.dataset == "cifar10":
     train_data, train_labels, test_data, test_labels = load_cifar10()
 elif FLAGS.dataset == "svhn":
-    pass
+    train_data, train_labels, test_data, test_labels = load_svhn()
 
 
 def main(unused_argv):
