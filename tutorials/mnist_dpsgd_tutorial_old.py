@@ -39,6 +39,14 @@ from privacy.analysis.rdp_accountant import compute_rdp_from_ledger
 from privacy.analysis.rdp_accountant import get_privacy_spent
 from privacy.optimizers import dp_optimizer
 
+from scipy.io import loadmat as loadmat
+from six.moves import urllib
+import tarfile
+import gzip
+import sys
+import subprocess
+
+
 if LooseVersion(tf.__version__) < LooseVersion('2.0.0'):
     GradientDescentOptimizer = tf.train.GradientDescentOptimizer
     AdamOptimizer = tf.train.AdamOptimizer
@@ -80,7 +88,7 @@ flags.DEFINE_string('gpu', '1', 'set gpu')
 
 os.environ["CUDA_VISIBLE_DEVICES"] = FLAGS.gpu
 
-model_base_path = '/home/fanghb/dp-sgd/fork/privacy/'
+model_base_path = '/home/fanghb/dptestlog/'
 
 params = {
     'dpsgd': FLAGS.dpsgd,
@@ -374,26 +382,57 @@ def load_cifar10():
     return train_data, train_labels, test_data, test_labels
 
 
+
+
+
+
+
+
+# def load_svhn(one_hot = False):
+#     image_size = 32
+#     num_labels = 10
+#     import scipy.io as sio
+#     train = sio.loadmat('train_32x32.mat')
+#     test = sio.loadmat('test_32x32.mat')
+#
+#     train_data = train['X']
+#     train_label = train['y']
+#     test_data = test['X']
+#     test_label = test['y']
+#
+#     train_data = np.swapaxes(train_data, 0, 3)
+#     train_data = np.swapaxes(train_data, 2, 3)
+#     train_data = np.swapaxes(train_data, 1, 2)
+#     test_data = np.swapaxes(test_data, 0, 3)
+#     test_data = np.swapaxes(test_data, 2, 3)
+#     test_data = np.swapaxes(test_data, 1, 2)
+#
+#     test_data = test_data / 255.
+#     train_data = train_data / 255.
+#
+#     for i in range(train_label.shape[0]):
+#         if train_label[i][0] == 10:
+#             train_label[i][0] = 0
+#
+#     for i in range(test_label.shape[0]):
+#         if test_label[i][0] == 10:
+#             test_label[i][0] = 0
+#
+#     if one_hot:
+#         train_labels = (np.arange(num_labels) == train_label[:, ]).astype(np.float32)
+#         test_labels = (np.arange(num_labels) == test_label[:, ]).astype(np.float32)
+#
+#     return train_data, train_labels, test_data, test_labels
+
+
 def load_svhn():
-    """Loads SVHN and preprocesses to combine training and validation data."""
-
     from scipy.io import loadmat as load
-
-    traindata = load('data/train_32x32.mat')
-    testdata = load('data/test_32x32.mat')
-
-    def reformat(samples, labels):
-        # 改变原始数据的形状
-        # (图片高，图片宽，通道数，图片数)->(图片数,图片高，图片宽，通道数)
-        samples = np.transpose(samples, (3, 0, 1, 2))
-        labels = np.reshape(labels, (-1,))
-        return samples, labels
-
-    train_data, train_labels = reformat(traindata['X']), traindata['y']
-    test_data, test_labels = reformat(testdata['X']), testdata['y']
-
-    print(train_data.min())
-    print(train_data.max())
+    train = load('train_32x32.mat')
+    test = load('test_32x32.mat')
+    train_data = train['X']
+    train_labels = train['y']
+    test_data = test['X']
+    test_labels = test['y']
 
     train_data = np.array(train_data, dtype=np.float32) / 255
     test_data = np.array(test_data, dtype=np.float32) / 255
@@ -406,14 +445,16 @@ def load_svhn():
 
     print(train_labels.shape, test_data.shape)
 
-    assert train_data.min() == 0.
-    assert train_data.max() == 1.
-    assert test_data.min() == 0.
-    assert test_data.max() == 1.
-    assert train_labels.ndim == 1
-    assert test_labels.ndim == 1
+    # assert train_data.min() == 0.
+    # assert train_data.max() == 1.
+    # assert test_data.min() == 0.
+    # assert test_data.max() == 1.
+    # assert train_labels.ndim == 1
+    # assert test_labels.ndim == 1
 
     return train_data, train_labels, test_data, test_labels
+
+
 
 
 def generate_next_batch(data, label, batch_size, shffule=False):
@@ -428,7 +469,7 @@ def generate_next_batch(data, label, batch_size, shffule=False):
         yield (data[i * batch_size: (i + 1) * batch_size], label[i * batch_size: (i + 1) * batch_size])
 
 
-train_op, opt_loss, opt_accuracy = cnn_model_fn(X, Y, None)
+train_op, opt_loss, opt_accuracy = cnn_model_fn (X, Y)
 
 tf.summary.scalar('loss', opt_loss)
 tf.summary.scalar('accuracy', opt_accuracy)
@@ -438,7 +479,7 @@ if FLAGS.dataset == "mnist":
 elif FLAGS.dataset == "cifar10":
     train_data, train_labels, test_data, test_labels = load_cifar10()
 elif FLAGS.dataset == "svhn":
-    train_data, train_labels, test_data, test_labels = load_svhn()
+    train_data, train_labels, test_data, test_labels =load_svhn()
 
 
 def main(unused_argv):
@@ -457,7 +498,7 @@ def main(unused_argv):
             raise ValueError('Number of microbatches should divide evenly batch_size')
 
         # Load training and test data.
-        print(train_data.shape, train_labels.shape)
+        # print(train_data.shape, train_labels.shape)
         # Training loop.
         for epoch in range(1, FLAGS.epochs + 1):
 
